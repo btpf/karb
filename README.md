@@ -36,7 +36,7 @@ added
 
 3. **node.js** - language in which this was coded
 
-4. **VsCode **- main coding platform
+4. **VsCode** - main coding platform
 
 5. **PostgreSQL** - database for the project
 
