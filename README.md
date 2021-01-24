@@ -1,4 +1,4 @@
-# Krab
+# KRAB
 (K)arolay Sanchez, (R)ichard Tsang (A)rmaan Singh, (B)ret Papkoff. 
 
 ![](https://cdn.discordapp.com/attachments/802690157970456590/803012904122843136/unknown.png)
