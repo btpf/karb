@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div id="flexContent">
-    <NavigateButton msg="Add Ingredients" url="/about"/>
+    <NavigateButton msg="Add Ingredients" url="/Ingredient"/>
     <NavigateButton msg="Show Recipes" url="/recipes"/>
     </div>
   </div>
