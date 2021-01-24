@@ -1,9 +1,10 @@
 const express = require('express')
 const axios = require('axios');
 const app = express()
-const port = 3000
+const port = 3001
 const querystring = require("querystring");
-var mykey = config.MY_API_TOKEN;
+const config = require("./secrets.json")
+var spoonacularAPIKey = config.spoonacular_api_key;
 const { Pool, Client } = require('pg');
 let list = "";
 
@@ -15,19 +16,19 @@ user: "postgres",
 host: "0.tcp.ngrok.io",
 database: "krab",
 password: "root",
-port: "13816"})
+port: "17086"})
 
 
-pool.query('SELECT NOW()', (err, res) => {
-  console.log(err, res)
-  pool.end()
-})
+// pool.query('SELECT NOW()', (err, res) => {
+//   console.log(err, res)
+//   pool.end()
+// })
 
 
 
 app.get('/', (req, res) => {
 
-
+res.send("example")
 
 })
 app.get('/addIngredient',(req,res)=>{
@@ -52,15 +53,20 @@ app.get('/deleteIngredient',(req,res)=>{
 
 app.get('/listIngredients' , async(req,res)=> {
 const {rows} = await pool.query('SELECT ingredientName FROM ingredient')
-res.send(rows);
+let ingredientList = []
+rows.forEach((obj)=>ingredientList.push(obj.ingredientname))
+res.send(ingredientList);
 
 });
 
 app.get('/findrecipe', async (req, res) => {
   const {rows} = await pool.query('SELECT ingredientName FROM ingredient')
-	axios.get('https://api.spoonacular.com/recipes/findByIngredients', + MY_API_TOKEN{
+  let ingredientList = []
+rows.forEach((obj)=>ingredientList.push(obj.ingredientname))
+	axios.get('https://api.spoonacular.com/recipes/findByIngredients', {
 		params:{
-		ingredients: rows,
+            apiKey:spoonacularAPIKey,
+		ingredients: ingredientList.join(),
 		number: "10",
 		limitLicense: "true",
 		ranking: "1",
