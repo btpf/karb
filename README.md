@@ -1,22 +1,25 @@
 # Krab
-   ![](https://media.discordapp.net/attachments/802690157970456590/803012904122843136
-unknown.png?width=803&height=586)
+   ![](https://cdn.discordapp.com/attachments/802690157970456590/803012904122843136/unknown.png)
+
  - Designed to provide the user with recipes they can make once they put in a recipe and
-narrow it down by cuisine or diet.
+narrow it down by cuisine or diet. It is also very helpful in the time of covid where many rely on uber eats to take out food.
+The application in it's complete form would allow the user to scan ingredients around their house an an alternative to manually entering them in.
+This would use Google Cloud Vision which would use AI that would recognize the item and add it to the database of ingredients.
  ##### Instructions:
  1. User would go to home page and click on the add ingredients button where there will be
 a text box.
-   ![](https://cdn.discordapp.com/attachments/802690157970456590/803012291737419807
-unknown.png)
+   ![](https://cdn.discordapp.com/attachments/802690157970456590/803012291737419807/unknown.png)
      2.The user can add ingredients to their satisfaction and then his search for recipe, they will
 be told if they need any additional ingredients for the particular recipe.
-   ![](https://media.discordapp.net/attachments/802690157970456590/803012451087155240
-unknown.png?width=360&height=586)
-     3. Additional they can go back to their previous list of ingredients and delete ingredtes if
+   ![](https://cdn.discordapp.com/attachments/802690157970456590/803012369017602048/unknown.png)
+     3. Additional they can go back to their previous list of ingredients and delete ingrates if
 they want to use some of the previous ingredients.
-  ![](https://media.discordapp.net/attachments/802690157970456590/803012369017602048
-unknown.png?width=502&height=586)
+  ![](https://cdn.discordapp.com/attachments/802690157970456590/803012369017602048/unknown.png)
          ##### Technologies Used
+ ##### Mockups used for UI.
+![](https://cdn.discordapp.com/attachments/642141815478419467/803015913909125180/unknown.png)
+
+
  1. **spoonacular API** - provided with recipes once ingredients and paramateres were
 added
  2. **Vue.js** - in order to make front end work easier
@@ -29,3 +32,7 @@ added
  9. **Express JS** - Processing Incoming requests
  10. **Apache Cordova** - make web apps run as mobile apps combined with vue.
  11. **Github** - for version control
+ 
+ 
+ Screenshot of planning sheet (Path to learn the technologies neccesary for the app's creation)
+~[](https://cdn.discordapp.com/attachments/642141815478419467/803016470798794753/unknown.png)
