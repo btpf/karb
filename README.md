@@ -1,10 +1,13 @@
 # Krab
 ![](https://cdn.discordapp.com/attachments/802690157970456590/803012904122843136/unknown.png)
 
+Final Submission Overview: https://docs.google.com/document/d/1Fg8xsx3X5zUqGILK1PxlsLn5jzTxPy-qMCC7ZhRYTkY/edit
+
  - Designed to provide the user with recipes they can make once they put in a recipe and
 narrow it down by cuisine or diet. It is also very helpful in the time of covid where many rely on uber eats to take out food.
 The application in it's complete form would allow the user to scan ingredients around their house an an alternative to manually entering them in.
 This would use Google Cloud Vision which would use AI that would recognize the item and add it to the database of ingredients.
+
 ##### Instructions:
  1. User would go to home page and click on the add ingredients button where there will be
 a text box.
