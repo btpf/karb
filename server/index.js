@@ -1,10 +1,62 @@
 const express = require('express')
+const axios = require('axios');
 const app = express()
 const port = 3000
+var mykey = config.MY_API_TOKEN;
+const { Pool, Client } = require('pg')
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+//const form	= res.sendfile("html/index.html");
+
+  form.pipe(res);
 })
+
+
+app.get('/findByIngredients', (req, res) => {
+	axios.get('https://api.spoonacular.com/recipes/findByIngredients', + MY_API_TOKEN{
+		params:{
+
+		ingredients: userinput,
+		number: "10",
+		limitLicense: "true",
+		ranking: "1",
+		ignorePantry: "true"
+	},
+	header:{
+		"Content-Type": "application/json"
+	}
+	})
+	.then(ress =>{
+	console.log(ress.data);
+	res.send(ress.data);
+
+	})
+	.catch(err => console.error(err))
+
+
+	res.send(filterdata(data));
+})
+
+function filterdata(data){
+//	console.log(data);
+	console.log("hi");
+	data = data.map((obj)=> ({
+	id:obj.id,
+	title:obj.title,
+	image:obj.image,
+	imageType:obj.imageType,
+	usedIngredientCount:obj.usedIngredientCount,
+	missedIngredientCount:obj.missedIngredientCount,
+	missedIngredients:obj.missedIngredients,
+	usedIngredients:obj.usedIngredients
+	}));
+	console.log(data);
+	//data.map((obj) => console.log(obj));
+
+	return data;
+}
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
@@ -12,10 +64,9 @@ app.listen(port, () => {
 
 
 //Armaan Singh index.js lines 14-72
-var express = require('express');
-var app = express();
 
-const { Pool, Client } = require('pg')
+
+
 // pools will use environment variables
 // for connection information
 const pool = new Pool({
@@ -38,18 +89,6 @@ pool.query("INSERT INTO ingredient(ingredientName) VALUES('Cheese')",(err, res) 
 })
 */
 
-app.get('/', function(req, res){
-   res.send("Hello world!");
-});
-
-
-app.get('/test', function(req, res){
-   res.send("Test");
-});
-
-app.get('/recipe', function(req, res){
-   res.send("Recipe Response");
-});
 
 
 app.get('/addIngredient/:ingredientName', async(req,res) => {
@@ -70,4 +109,3 @@ pool.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
 })
 
 app.listen(3000);
-
