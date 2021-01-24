@@ -21,11 +21,11 @@ they want to use some of the previous ingredients.
 
   ![](https://cdn.discordapp.com/attachments/802690157970456590/803012369017602048/unknown.png)
   
-##### Technologies Used
+
 ##### Mockups used for UI
 ![](https://cdn.discordapp.com/attachments/642141815478419467/803015913909125180/unknown.png)
 
-
+##### Technologies Used
  1. **spoonacular API** - provided with recipes once ingredients and paramateres were
 added
  2. **Vue.js** - in order to make front end work easier
