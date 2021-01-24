@@ -8,14 +8,17 @@ This would use Google Cloud Vision which would use AI that would recognize the i
 ##### Instructions:
  1. User would go to home page and click on the add ingredients button where there will be
 a text box.
+
    ![](https://cdn.discordapp.com/attachments/802690157970456590/803012291737419807/unknown.png)
 
 2.The user can add ingredients to their satisfaction and then his search for recipe, they will
 be told if they need any additional ingredients for the particular recipe.
+
    ![](https://cdn.discordapp.com/attachments/802690157970456590/803012369017602048/unknown.png)
    
 3. Additional they can go back to their previous list of ingredients and delete ingrates if
 they want to use some of the previous ingredients.
+
   ![](https://cdn.discordapp.com/attachments/802690157970456590/803012369017602048/unknown.png)
   
 ##### Technologies Used
