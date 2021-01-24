@@ -22,7 +22,7 @@ they want to use some of the previous ingredients.
   ![](https://cdn.discordapp.com/attachments/802690157970456590/803012369017602048/unknown.png)
   
 ##### Technologies Used
-##### Mockups used for UI.
+##### Mockups used for UI
 ![](https://cdn.discordapp.com/attachments/642141815478419467/803015913909125180/unknown.png)
 
 
