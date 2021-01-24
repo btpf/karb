@@ -1,5 +1,8 @@
 # Krab
+(K)arolay Sanchez, (R)ichard Tsang (A)rmaan Singh, (B)ret Papkoff. 
+
 ![](https://cdn.discordapp.com/attachments/802690157970456590/803012904122843136/unknown.png)
+
 
 Final Submission Overview: https://docs.google.com/document/d/1Fg8xsx3X5zUqGILK1PxlsLn5jzTxPy-qMCC7ZhRYTkY/edit
 
