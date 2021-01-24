@@ -34,7 +34,7 @@ app.get('/addIngredient',(req,res)=>{
 //const form	= res.sendfile("html/index.html");
   form.pipe(res);// takes in the result of the userinput from form
 
-}
+});
 
 
 app.get('/addIngredient/:ingredientName', async(req,res) => {
@@ -49,13 +49,14 @@ res.send(rows[0])
 app.get('/listIngredients' , async(req,res)=> {
 const {rows} = await pool.query('SELECT ingredientName FROM ingredient')
 res.send(rows);
-list = ingredientName; // push the list into the string
+
 });
 
-app.get('/findrecipe', (req, res) => {
+app.get('/findrecipe', async (req, res) => {
+  const {rows} = await pool.query('SELECT ingredientName FROM ingredient')
 	axios.get('https://api.spoonacular.com/recipes/findByIngredients', + MY_API_TOKEN{
 		params:{
-		ingredients: list,
+		ingredients: rows,
 		number: "10",
 		limitLicense: "true",
 		ranking: "1",
@@ -75,6 +76,7 @@ app.get('/findrecipe', (req, res) => {
 
 	res.send(filterdata(data));
 
+//.join
 
 
 })
