@@ -43,7 +43,11 @@ const { rows } = await pool.query("INSERT INTO ingredient(ingredientName) VALUES
 res.send(rows[0])
 });
 
+app.get('/deleteIngredient',(req,res)=>{
+//const form	= res.sendfile("html/index.html");
+  form.pipe(res);// takes in the result of the userinput from form
 
+});
 
 
 app.get('/listIngredients' , async(req,res)=> {
