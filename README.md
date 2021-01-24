@@ -50,5 +50,5 @@ added
 11. **Github** - for version control
  
  
- Screenshot of planning sheet (Path to learn the technologies neccesary for the app's creation)
+ *Screenshot of planning sheet (Path to learn the technologies neccesary for the app's creation)*
 ![](https://cdn.discordapp.com/attachments/642141815478419467/803016470798794753/unknown.png)
