@@ -2,21 +2,60 @@ const express = require('express')
 const axios = require('axios');
 const app = express()
 const port = 3000
+const querystring = require("querystring");
 var mykey = config.MY_API_TOKEN;
-const { Pool, Client } = require('pg')
+const { Pool, Client } = require('pg');
+let list = "";
 
-app.get('/', (req, res) => {
-//const form	= res.sendfile("html/index.html");
 
-  form.pipe(res);
+// pools will use environment variables
+// for connection information
+const pool = new Pool({
+user: "postgres",
+host: "0.tcp.ngrok.io",
+database: "krab",
+password: "root",
+port: "13816"})
+
+
+pool.query('SELECT NOW()', (err, res) => {
+  console.log(err, res)
+  pool.end()
 })
 
 
-app.get('/findByIngredients', (req, res) => {
+
+app.get('/', (req, res) => {
+
+
+
+})
+app.get('/addIngredient',(req,res)=>{
+//const form	= res.sendfile("html/index.html");
+  form.pipe(res);// takes in the result of the userinput from form
+
+}
+
+
+app.get('/addIngredient/:ingredientName', async(req,res) => {
+const ingredientName = req.params.ingredientName
+const { rows } = await pool.query("INSERT INTO ingredient(ingredientName) VALUES($1)", [ingredientName])
+res.send(rows[0])
+});
+
+
+
+
+app.get('/listIngredients' , async(req,res)=> {
+const {rows} = await pool.query('SELECT ingredientName FROM ingredient')
+res.send(rows);
+list = ingredientName; // push the list into the string
+});
+
+app.get('/findrecipe', (req, res) => {
 	axios.get('https://api.spoonacular.com/recipes/findByIngredients', + MY_API_TOKEN{
 		params:{
-
-		ingredients: userinput,
+		ingredients: list,
 		number: "10",
 		limitLicense: "true",
 		ranking: "1",
@@ -35,6 +74,9 @@ app.get('/findByIngredients', (req, res) => {
 
 
 	res.send(filterdata(data));
+
+
+
 })
 
 function filterdata(data){
@@ -67,20 +109,7 @@ app.listen(port, () => {
 
 
 
-// pools will use environment variables
-// for connection information
-const pool = new Pool({
-user: "postgres",
-host: "0.tcp.ngrok.io",
-database: "krab",
-password: "root",
-port: "13816"})
 
-
-pool.query('SELECT NOW()', (err, res) => {
-  console.log(err, res)
-  pool.end()
-})
 
 /*
 pool.query("INSERT INTO ingredient(ingredientName) VALUES('Cheese')",(err, res) => {
@@ -91,17 +120,9 @@ pool.query("INSERT INTO ingredient(ingredientName) VALUES('Cheese')",(err, res) 
 
 
 
-app.get('/addIngredient/:ingredientName', async(req,res) => {
-const ingredientName = req.params.ingredientName
-const { rows } = await pool.query("INSERT INTO ingredient(ingredientName) VALUES($1)", [ingredientName])
-res.send(rows[0])
-});
 
 
-app.get('/listIngredients' , async(req,res)=> {
-const {rows} = await pool.query('SELECT ingredientName FROM ingredient')
-res.send(rows);
-});
+
 
 
 pool.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
