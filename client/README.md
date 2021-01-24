@@ -3,11 +3,13 @@
 ## Project setup
 ```
 npm install
+npm run cordova-prepare
 ```
 
 ### Compiles and hot-reloads for development
 ```
 npm run serve
+npm run cordova-serve-android # Android Development
 ```
 
 ### Compiles and minifies for production
