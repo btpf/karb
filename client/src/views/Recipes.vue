@@ -1,39 +1,58 @@
 <template>
   <div class="home">
-    <div id="flexContent">
-    <NavigateButton msg="Add Ingredients" url="/about"/>
-    <NavigateButton msg="Show Recipes" url="/about"/>
+    <div id="flexRecipes">
+      <template v-for="recipe in recipes">
+      <RecipePreview
+        v-bind:key=recipe.id
+        :imageLink=recipe.image
+        :name=recipe.title
+        url="/about"
+      />
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import RecipePreview from '@/components/RecipePreview.vue'
+const axios = require('axios')
 // @ is an alias to /src
-import NavigateButton from '@/components/NavigateButton.vue'
 
 export default {
   name: 'Home',
+  mounted: function () {
+    // this.getCourses()
+    this.populateData()
+    console.log('mounted: got here')
+  },
+  data: function () {
+    return {
+      recipes: []
+    }
+  },
+  methods: {
+    populateData: function () {
+      axios
+        .get('http://localhost:3001/findrecipe/')
+        .then((data) => {
+          this.recipes = data.data
+        })
+        .catch((err) => console.error(err))
+    }
+  },
   components: {
-    NavigateButton
+    RecipePreview
   }
 }
 </script>
 
 <style>
-#flexContent{
-  display:flex;
+#flexRecipes {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+  align-content: space-around;
   justify-content: space-evenly;
-  align-items: center;
-  flex-direction: column;
-  height: calc(100vh - 120px);
-
+  flex-wrap: wrap;
 }
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
 </style>
