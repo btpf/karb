@@ -4,19 +4,20 @@ const app = express()
 const port = 3001
 const querystring = require("querystring");
 const config = require("./secrets.json")
+const imageTest = require("./image.json").data
+const server = config.database
 var spoonacularAPIKey = config.spoonacular_api_key;
 const { Pool, Client } = require('pg');
-let list = "";
 
 
 // pools will use environment variables
 // for connection information
 const pool = new Pool({
-user: "postgres",
-host: "0.tcp.ngrok.io",
-database: "krab",
-password: "root",
-port: "17086"})
+user: server.username,
+host: server.ip,
+database: server.dbname,
+password: server.password,
+port: server.port})
 
 const cors = require('cors');
 // pool.query('SELECT NOW()', (err, res) => {
@@ -54,6 +55,13 @@ app.get('/deleteIngredient',(req,res)=>{
 
 });
 
+app.get('/getImage',(req,res)=>{
+	//const form	= res.sendfile("html/index.html");
+	var img = new Buffer.from(imageTest);
+	res.send("<img src=\"data:image/jpeg;base64, " + imageTest + "\"/>")
+	// res.send(imageTest);// takes in the result of the userinput from form
+	
+	});
 
 app.delete('/removeIngredient/:ingredientName', async(req,res) => {
 const ingredientName = req.params.ingredientName
