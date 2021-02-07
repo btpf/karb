@@ -26,7 +26,7 @@ const cors = require('cors');
 // })
 
 const corsOptions ={
-    origin:'http://localhost:8080', 
+    origin:'http://localhost:8080',
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
@@ -60,8 +60,34 @@ app.get('/getImage',(req,res)=>{
 	var img = new Buffer.from(imageTest);
 	res.send("<img src=\"data:image/jpeg;base64, " + imageTest + "\"/>")
 	// res.send(imageTest);// takes in the result of the userinput from form
-	
+
 	});
+
+app.post('/postimage', (req, res) =>{
+  axios.post('https://vision.googleapis.com/v1/images:annotate', {
+		params:{
+            key: googlekey
+	},
+	header:{
+		"Content-Type": "application/json"
+	}
+	})
+	.then(ress =>{
+	console.log(ress.data);
+	res.send(ress.data);
+
+	})
+  res.sendstatus(200);
+});
+.catch(err => console.error(err))
+
+
+res.send(filterdata(data));
+
+//.join
+
+
+})
 
 app.delete('/removeIngredient/:ingredientName', async(req,res) => {
 const ingredientName = req.params.ingredientName
