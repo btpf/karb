@@ -1,15 +1,14 @@
-# krab
+# Karb
 
 ## Project setup
 ```
 npm install
-npm run cordova-prepare
 ```
 
 ### Compiles and hot-reloads for development
 ```
 npm run serve
-npm run cordova-serve-android # Android Development
+npm run build && npx cap sync && npx cap open android # Android Development
 ```
 
 ### Compiles and minifies for production
@@ -24,3 +23,4 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
