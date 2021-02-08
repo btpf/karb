@@ -1,6 +1,7 @@
 <template>
   <form id="flexForm" v-on:submit.prevent="addNewIngredient">
-    <label id="ingredientLabel" for="new-ingredient">Insert the ingredients In Your House</label>
+    <label id="ingredientLabel" for="new-ingredient">Insert or scan the ingredients In Your House</label>
+    <video id="video" ref="cameraElement" playsinline autoplay></video>
     <input
       id="new-ingredient"
       placeholder="E.g. Apple"
@@ -34,6 +35,19 @@ export default {
         })
         .catch((err) => console.error(err))
     }
+  },
+  mounted: function () {
+    const constraints = {
+      audio: false,
+      video: { facingMode: { exact: (/Mobi/.test(navigator.userAgent)) ? 'environment' : undefined } }
+    }
+    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+      this.$refs.cameraElement.srcObject = stream
+    }).then((devices) => {
+      console.log(devices)
+    }).catch((error) => {
+      console.error(error)
+    })
   },
   data: function () {
     return {
