@@ -76,18 +76,9 @@ app.post('/postimage', (req, res) =>{
 	console.log(ress.data);
 	res.send(ress.data);
 
-	})
+	}).catch(err => console.error(err))
   res.sendstatus(200);
 });
-.catch(err => console.error(err))
-
-
-res.send(filterdata(data));
-
-//.join
-
-
-})
 
 app.delete('/removeIngredient/:ingredientName', async(req,res) => {
 const ingredientName = req.params.ingredientName
