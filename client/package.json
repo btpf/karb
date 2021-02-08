@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve-android": "npm run build && npx cap sync && npx cap open android",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
