@@ -1,12 +1,27 @@
 <template>
   <form id="flexForm" v-on:submit.prevent="addNewIngredient">
-    <label id="ingredientLabel" for="new-ingredient">Insert or scan the ingredients In Your House</label>
-    <video id="video" ref="cameraElement" playsinline autoplay></video>
-    <input
-      id="new-ingredient"
-      placeholder="E.g. Apple"
-      v-model="text"
+    <label id="ingredientLabel" for="new-ingredient"
+      >Insert or scan the ingredients In Your House</label
     >
+      <div  v-show="camera" id="video-container">
+        <video id="video" ref="cameraElement" playsinline autoplay></video>
+        <button @click="scanImage" id="scanButton">
+          {{ buttonText }}
+        </button>
+      </div>
+      <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1"> -->
+      <!-- <circle cx="150" cy="50" r="40" stroke="#36454f" stroke-width="3" fill="rgba(255, 255, 255, 0.80)" /> -->
+      <!-- </svg> -->
+    <template v-if="!camera">
+      <div id="optionContainer">
+        <h1>Select Option</h1>
+        <h2 v-for="(ingredient, index) in ingredients" @click="selectIngredient(ingredient)" v-bind:style="{'cursor':'pointer'}"  :key="index" >{{ingredient}}</h2>
+        <button id="retry" @click="resetScanner">
+          Retry
+        </button>
+      </div>
+    </template>
+    <input id="new-ingredient" placeholder="E.g. Apple" v-model="text" />
     <button id="addButton">Add</button>
   </form>
   <!-- <ul>
@@ -34,54 +49,112 @@ export default {
           this.text = ''
         })
         .catch((err) => console.error(err))
+    },
+    selectIngredient: function (ingredientText) {
+      this.text = ingredientText
+      this.addNewIngredient()
+      this.resetScanner()
+    },
+    resetScanner: function () {
+      this.camera = true
+      this.ingredients = []
+      this.buttonText = 'Scan Image'
+    },
+    scanImage: function () {
+      if (this.buttonText === 'Scanning...') {
+        return null
+      }
+      this.buttonText = 'Scanning...'
+      setTimeout(() => {
+        this.camera = false
+        this.ingredients = ['Turkey', 'peanut', 'ketchup']
+      }, 2000)
     }
   },
   mounted: function () {
     const constraints = {
       audio: false,
-      video: { facingMode: { exact: (/Mobi/.test(navigator.userAgent)) ? 'environment' : undefined } }
+      video: {
+        facingMode: {
+          exact: /Mobi/.test(navigator.userAgent) ? 'environment' : undefined
+        }
+      }
     }
-    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-      this.$refs.cameraElement.srcObject = stream
-    }).then((devices) => {
-      console.log(devices)
-    }).catch((error) => {
-      console.error(error)
-    })
+    navigator.mediaDevices
+      .getUserMedia(constraints)
+      .then((stream) => {
+        this.$refs.cameraElement.srcObject = stream
+      })
+      .then((devices) => {
+        console.log(devices)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   },
   data: function () {
     return {
-      text: ''
+      text: '',
+      buttonText: 'Scan Image',
+      camera: true,
+      optionSelect: false,
+      ingredients: []
     }
   }
 }
 </script>
 
 <style>
-#ingredientLabel{
-    font-size: 25px;
-    color:black;
-    font-weight: bold;
+#ingredientLabel {
+  font-size: 25px;
+  color: black;
+  font-weight: bold;
 }
-#add-ingredients{
-  display:flex;
+#retry{
+  border: unset;
+  background-color: #57C3FF;
+  width: 180px;
+  height: 45px;
+    font-size: 24px;
+  font-weight: bold;
+}
+#add-ingredients {
+  display: flex;
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
   margin-top: 50px;
-
 }
-#addButton{
-    width:255px;
-    height:75px;
-    background-color:#00C64F;
-    border:none;
-    color:whitesmoke;
-    font-size: 24px;
-    font-weight: bold;
+#scanButton {
+  font-size: 24px;
+  border-width: 2px;
+  background: rgba(250, 128, 114, 0.8);
+  border-radius: 54px;
+  border: none;
+  padding: 10px 30px;
+  color: white;
+  font-weight: bold;
+  transform: translate(0, -60px);
+  cursor: pointer;
 }
-#new-ingredient{
-  font-family: 'Roboto', sans-serif;
+#video {
+  width: 100%;
+}
+#middleSpacer {
+  flex-grow: 1;
+}
+#addButton {
+  width: 255px;
+  height: 75px;
+  background-color: #00c64f;
+  border: none;
+  color: whitesmoke;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+#new-ingredient {
+  font-family: "Roboto", sans-serif;
   color: #333;
   font-size: 1.2rem;
   margin: 0 auto;
@@ -93,14 +166,16 @@ export default {
   display: block;
   /* border-bottom: 0.3rem solid transparent; */
   transition: all 0.3s;
+  min-width: 250px;
+  max-width: 500px;
 }
-#flexForm{
-    display:flex;
-    flex-direction: column;
-    margin-top:50px;
-    justify-content: space-evenly;
-    height: calc(100vh - 120px);
-    align-items: center;
+#flexForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  justify-content: space-evenly;
+  height: fit-content;
+  align-items: center;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -109,5 +184,4 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 </style>
