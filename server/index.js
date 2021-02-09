@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser');
 const axios = require('axios');
 const app = express()
 const port = 3001
@@ -31,6 +32,10 @@ const corsOptions ={
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
+app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json({limit: '2mb'}));
+app.use(bodyParser.raw());
+
 app.get('/', (req, res) => {
 
 res.send("example")
@@ -64,20 +69,24 @@ app.get('/getImage',(req,res)=>{
 	});
 
 app.post('/postimage', (req, res) =>{
-  axios.post('https://vision.googleapis.com/v1/images:annotate', {
-		params:{
-            key: googlekey
-	},
-	header:{
-		"Content-Type": "application/json"
-	}
-	})
-	.then(ress =>{
-	console.log(ress.data);
-	res.send(ress.data);
+//   axios.post('https://vision.googleapis.com/v1/images:annotate', {
+// 		params:{
+//             key: googlekey
+// 	},
+// 	header:{
+// 		"Content-Type": "application/json"
+// 	}
+// 	})
+// 	.then(ress =>{
+// 	console.log(ress.data);
+// 	res.send(ress.data);
 
-	}).catch(err => console.error(err))
-  res.sendstatus(200);
+// 	}).catch(err => console.error(err))
+//   res.sendstatus(200);
+let base64Upload = req.body.image
+
+
+res.send(["Turkey","Peanut","Ice Cream"])
 });
 
 app.delete('/removeIngredient/:ingredientName', async(req,res) => {

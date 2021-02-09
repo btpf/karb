@@ -1,29 +1,36 @@
 <template>
-  <form id="flexForm" v-on:submit.prevent="addNewIngredient">
+  <div id="flexContent">
     <label id="ingredientLabel" for="new-ingredient"
       >Insert or scan the ingredients In Your House</label
     >
-      <div  v-show="camera" id="video-container">
-        <video id="video" ref="cameraElement" playsinline autoplay></video>
-        <button @click="scanImage" id="scanButton">
-          {{ buttonText }}
-        </button>
-      </div>
-      <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1"> -->
-      <!-- <circle cx="150" cy="50" r="40" stroke="#36454f" stroke-width="3" fill="rgba(255, 255, 255, 0.80)" /> -->
-      <!-- </svg> -->
+    <div v-show="camera" id="video-container">
+      <video id="video" ref="cameraElement" playsinline autoplay></video>
+      <button @click="scanImage" id="scanButton">
+        {{ buttonText }}
+      </button>
+    </div>
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" version="1.1"> -->
+    <!-- <circle cx="150" cy="50" r="40" stroke="#36454f" stroke-width="3" fill="rgba(255, 255, 255, 0.80)" /> -->
+    <!-- </svg> -->
     <template v-if="!camera">
       <div id="optionContainer">
         <h1>Select Option</h1>
-        <h2 v-for="(ingredient, index) in ingredients" @click="selectIngredient(ingredient)" v-bind:style="{'cursor':'pointer'}"  :key="index" >{{ingredient}}</h2>
-        <button id="retry" @click="resetScanner">
-          Retry
-        </button>
+        <h2
+          v-for="(ingredient, index) in ingredients"
+          @click="selectIngredient(ingredient)"
+          v-bind:style="{ cursor: 'pointer' }"
+          :key="index"
+        >
+          {{ ingredient }}
+        </h2>
+        <button id="retry" @click="resetScanner">Retry</button>
       </div>
     </template>
-    <input id="new-ingredient" placeholder="E.g. Apple" v-model="text" />
-    <button id="addButton">Add</button>
-  </form>
+    <form id="flexForm" v-on:submit.prevent="addNewIngredient">
+      <input id="new-ingredient" placeholder="E.g. Apple" v-model="text" />
+      <button id="addButton">Add</button>
+    </form>
+  </div>
   <!-- <ul>
     <li
       is="ingredient-item"
@@ -43,6 +50,7 @@ export default {
   name: 'Home',
   methods: {
     addNewIngredient: function () {
+      console.log('Called')
       axios
         .get('http://localhost:3001/addIngredient/' + this.text)
         .then((data) => {
@@ -65,11 +73,30 @@ export default {
         return null
       }
       this.buttonText = 'Scanning...'
-      setTimeout(() => {
-        this.camera = false
-        this.ingredients = ['Turkey', 'peanut', 'ketchup']
-      }, 2000)
+
+      const imageCapture = new ImageCapture(
+        this.$refs.cameraElement.srcObject.getTracks()[0]
+      )
+      imageCapture.takePhoto().then((image) => {
+        const reader = new FileReader()
+        reader.onload = (event) => {
+          axios
+            .post('http://localhost:3001/postimage/', {
+              image: event.target.result
+            })
+            .then((response) => {
+              this.camera = false
+              this.ingredients = response.data
+            })
+            .catch((error) => {
+              console.log(error)
+              this.ingredients = ['Error Please Retry']
+            })
+        }
+        reader.readAsDataURL(image)
+      })
     }
+
   },
   mounted: function () {
     const constraints = {
@@ -85,9 +112,7 @@ export default {
       .then((stream) => {
         this.$refs.cameraElement.srcObject = stream
       })
-      .then((devices) => {
-        console.log(devices)
-      })
+      .then()
       .catch((error) => {
         console.error(error)
       })
@@ -104,18 +129,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #ingredientLabel {
   font-size: 25px;
   color: black;
   font-weight: bold;
 }
-#retry{
+#retry {
   border: unset;
-  background-color: #57C3FF;
+  background-color: #57c3ff;
   width: 180px;
   height: 45px;
-    font-size: 24px;
+  font-size: 24px;
   font-weight: bold;
 }
 #add-ingredients {
@@ -170,6 +195,14 @@ export default {
   max-width: 500px;
 }
 #flexForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  justify-content: space-evenly;
+  height: fit-content;
+  align-items: center;
+}
+#flexContent {
   display: flex;
   flex-direction: column;
   margin-top: 50px;
