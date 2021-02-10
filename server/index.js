@@ -121,14 +121,11 @@ rows.forEach((obj)=>ingredientList.push(obj.ingredientname))
 	}
 	})
 	.then(ress =>{
-	console.log(ress.data);
-	res.send(ress.data);
+		console.log(ress.data)
+		res.send(filterdata(ress.data));
 
 	})
 	.catch(err => console.error(err))
-
-
-	res.send(filterdata(data));
 
 //.join
 
@@ -138,16 +135,24 @@ rows.forEach((obj)=>ingredientList.push(obj.ingredientname))
 function filterdata(data){
 //	console.log(data);
 	console.log("hi");
+	// data = data.map((obj)=> ({
+	// id:obj.id,
+	// title:obj.title,
+	// image:obj.image,
+	// imageType:obj.imageType,
+	// usedIngredientCount:obj.usedIngredientCount,
+	// missedIngredientCount:obj.missedIngredientCount,
+	// missedIngredients:obj.missedIngredients,
+	// usedIngredients:obj.usedIngredients
+	// }));
+
 	data = data.map((obj)=> ({
-	id:obj.id,
-	title:obj.title,
-	image:obj.image,
-	imageType:obj.imageType,
-	usedIngredientCount:obj.usedIngredientCount,
-	missedIngredientCount:obj.missedIngredientCount,
-	missedIngredients:obj.missedIngredients,
-	usedIngredients:obj.usedIngredients
-	}));
+		id:obj.id,
+		title:obj.title,
+		image:obj.image,
+		missedIngredients:obj.missedIngredients.map((missingIngredient)=>(missingIngredient.name)),
+		}));
+
 	console.log(data);
 	//data.map((obj) => console.log(obj));
 
