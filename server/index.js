@@ -132,9 +132,31 @@ rows.forEach((obj)=>ingredientList.push(obj.ingredientname))
 
 })
 
+
+app.get('/getInstructions/:recipeId', async (req, res) => {
+
+
+	axios.get('https://api.spoonacular.com/recipes/' + req.params.recipeId + "/analyzedInstructions", {
+		params:{
+			apiKey:spoonacularAPIKey
+	},
+	header:{
+		"Content-Type": "application/json"
+	}
+	})
+	.then(instructionData =>{
+		res.send(instructionData.data);
+
+	})
+  
+  //.join
+  
+  
+  })
+
 function filterdata(data){
 //	console.log(data);
-	console.log("hi");
+	// console.log("hi");
 	// data = data.map((obj)=> ({
 	// id:obj.id,
 	// title:obj.title,
@@ -150,10 +172,10 @@ function filterdata(data){
 		id:obj.id,
 		title:obj.title,
 		image:obj.image,
-		missedIngredients:obj.missedIngredients.map((missingIngredient)=>(missingIngredient.name)),
+		missingIngredients:obj.missedIngredients.map((missingIngredient)=>(missingIngredient.name)),
 		}));
 
-	console.log(data);
+	// console.log(data);
 	//data.map((obj) => console.log(obj));
 
 	return data;

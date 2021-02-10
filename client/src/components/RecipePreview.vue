@@ -1,5 +1,5 @@
 <template>
-  <router-link id="recipeContainer" v-bind:to="url">
+  <router-link id="recipeContainer" v-bind:to="urlObj">
     <div id="recipeItem">
       <img id="imageBox" v-bind:src=imageLink alt="test" />
       <div id="recipeLabel">{{ (name) }}</div>
@@ -12,7 +12,7 @@ export default {
   props: {
     name: String,
     imageLink: String,
-    url: String
+    urlObj: Object
   },
   methods: {
     truncate: function (input) {

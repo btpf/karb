@@ -6,7 +6,7 @@
         v-bind:key=recipe.id
         :imageLink=recipe.image
         :name=recipe.title
-        url="/about"
+        :urlObj="{ name: 'recipeInstructions', params: {recipeId: recipe.id,title: recipe.title, image: recipe.image, missingIngredients: recipe.missingIngredients }}"
       />
       </template>
     </div>

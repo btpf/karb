@@ -20,7 +20,7 @@ const routes = [
   },
   {
     path: '/recipes',
-    name: 'About',
+    name: 'recipes',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -28,11 +28,23 @@ const routes = [
   },
   {
     path: '/ingredient',
-    name: 'About',
+    name: 'ingredient',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Ingredient.vue')
+  },
+  {
+    // Issue with passing arrays into routes. Fix detailed here
+    // https://stackoverflow.com/questions/58714652/array-in-route-parameter-cause-expected-to-not-repeat-warning
+    path: '/recipeInstructions/:recipeId/:title/:image/:missingIngredients*',
+    name: 'recipeInstructions',
+    // props: route => ({ recipeId: route.params.recipeId, missingIngredients: route.params.missingIngredients }),
+    props: true,
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/RecipeInstructions.vue')
   }
 ]
 
