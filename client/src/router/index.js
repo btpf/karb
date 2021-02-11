@@ -35,6 +35,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Ingredient.vue')
   },
   {
+    path: '/manage',
+    name: 'manage',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Manage.vue')
+  },
+  {
     // Issue with passing arrays into routes. Fix detailed here
     // https://stackoverflow.com/questions/58714652/array-in-route-parameter-cause-expected-to-not-repeat-warning
     path: '/recipeInstructions/:recipeId/:title/:image/:missingIngredients*',
@@ -46,6 +54,7 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/RecipeInstructions.vue')
   }
+
 ]
 
 const router = new VueRouter({

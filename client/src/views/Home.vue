@@ -3,6 +3,7 @@
     <div id="flexContent">
     <NavigateButton msg="Add Ingredients" url="/Ingredient"/>
     <NavigateButton msg="Show Recipes" url="/recipes"/>
+    <NavigateButton msg="Delete Ingredients" url="/manage"/>
     </div>
   </div>
 </template>
