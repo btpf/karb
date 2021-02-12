@@ -8,6 +8,7 @@ const config = require("./secrets.json")
 const imageTest = require("./image.json").data
 const server = config.database
 var spoonacularAPIKey = config.spoonacular_api_key;
+const googlekey = config.googlekey;
 const { Pool, Client } = require('pg');
 
 
@@ -69,24 +70,38 @@ app.get('/getImage',(req,res)=>{
 	});
 
 app.post('/postimage', (req, res) =>{
-//   axios.post('https://vision.googleapis.com/v1/images:annotate', {
-// 		params:{
-//             key: googlekey
-// 	},
-// 	header:{
-// 		"Content-Type": "application/json"
-// 	}
-// 	})
-// 	.then(ress =>{
-// 	console.log(ress.data);
-// 	res.send(ress.data);
+//let base64Upload = req.body.image
+let body = {
+	params:{
+		key: googlekey
+},
+	"requests": [
+	  {
+		"image": {  
+			"content": imageTest   
+		 },
+		 "features": [
+		   {
+					  
+			 "type": "TEXT_DETECTION"
+		   }
+		 ]
+	  }
+	]
+  }
+  axios.post('https://vision.googleapis.com/v1/images:annotate',body, {
+	header:{
+		"Content-Type": "application/json"
+	}
+	})
+	.then(ress =>{
+//	console.log(ress.data);
+	res.send(ress.data);
 
-// 	}).catch(err => console.error(err))
-//   res.sendstatus(200);
-let base64Upload = req.body.image
+	}).catch(err => console.error("err"))
+ // res.sendstatus(200);
 
-
-res.send(["Turkey","Peanut","Ice Cream"])
+//res.send(["Turkey","Peanut","Ice Cream"])
 });
 
 app.delete('/removeIngredient/:ingredientName', async(req,res) => {
