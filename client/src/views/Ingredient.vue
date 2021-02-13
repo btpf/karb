@@ -98,6 +98,9 @@ export default {
     }
 
   },
+  beforeDestroy: function () {
+    this.$refs.cameraElement.srcObject.getTracks()[0].stop()
+  },
   mounted: function () {
     const constraints = {
       audio: false,

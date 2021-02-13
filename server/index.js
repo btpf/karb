@@ -69,6 +69,7 @@ app.get("/getImage", (req, res) => {
 
 app.post("/postimage", (req, res) => {
   let base64Upload = req.body.image
+  base64Upload = base64Upload.replace("data:image/png;base64,", "");
   let config = {
     params: {
       key: googlekey,
@@ -90,7 +91,6 @@ app.post("/postimage", (req, res) => {
   };
   axios.post('https://vision.googleapis.com/v1/images:annotate',data, config)
   	.then(ress => {
-
 		axios
 		.post(
 		  "https://api.spoonacular.com/food/detect",
@@ -113,7 +113,7 @@ app.post("/postimage", (req, res) => {
 		})
 		.catch((e) => res.send(e));
 
-  	}).catch(err => console.error(err.response.data))
+  	}).catch(err => res.send([""]))
 
 
 
