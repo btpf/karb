@@ -63,10 +63,18 @@ export default {
   justify-content: space-between;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-top: 15px;
+  max-width: 400px;
+  align-self: center;
+  width: 100%;
 }
 
 #item {
   margin-left: 15px;
+}
+
+.deleteButton {
+  border: 0;
+  background-color: unset;
 }
 
 #circle {
