@@ -1,22 +1,55 @@
 <template>
   <div class="home">
-    <h2 id="ManagerLabel" for="ingredient">Delete ingredients</h2>
+    <h2 id="ManagerLabel" for="ingredient">Delete ingredient</h2>
+
     <div id="flexManage">
-      <div id="row">
-        <h3 id="item">item 1</h3>
+      <div id="row" v-for="(ingredient, i) in ingredients" :key="i">
+        <h3 id="item">{{ ingredient }}</h3>
 
-        <div id="circle">X</div>
+        <button class="deleteButton" v-on:click="deleteItems(ingredient)">
+          <div id="circle">X</div>
+        </button>
       </div>
 
-      <div id="row">
-        <h3 id="item">item2</h3>
+      <!-- <div id="row">
+        <h3 id="item">item 2</h3>
 
         <div id="circle">X</div>
-      </div>
+
+      </div> -->
     </div>
   </div>
 </template>
 <script>
+const axios = require('axios')
+
+export default {
+  name: 'Home',
+  data: function () {
+    return {
+      ingredients: []
+    }
+  },
+  mounted: function () {
+    axios.get('http://localhost:3001/listIngredients').then((response) => {
+      this.ingredients = response.data
+    })
+  },
+  methods: {
+    deleteItems: function (ingredientName) {
+      axios
+        .delete('http://localhost:3001/removeIngredient/' + ingredientName)
+        .then((response) => {
+          this.ingredients = this.ingredients.filter(
+            (ingredient) => ingredient !== ingredientName
+          )
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }
+}
 </script>
 
 <style>

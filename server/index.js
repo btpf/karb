@@ -104,7 +104,7 @@ app.post('/postimage', (req, res) => {
 
 app.delete('/removeIngredient/:ingredientName', async (req, res) => {
 	const ingredientName = req.params.ingredientName
-	const { rows } = await pool.query("Delete From ingredient where ingredientName = VALUES($1)", [ingredientName])
+	const { rows } = await pool.query("Delete From ingredient where ingredientName = ($1)", [ingredientName])
 	res.send(rows[0])
 });
 
