@@ -4,21 +4,34 @@ const axios = require("axios");
 const app = express();
 const port = process.env.PORT || 3001;
 const querystring = require("querystring");
-const config = require("./secrets.json");
-const imageTest = require("./image.json").data;
-const server = config.database;
-var spoonacularAPIKey = config.spoonacular_api_key;
-const googlekey = config.googlekey;
 const { Pool, Client } = require("pg");
+
+
+
+if(process.env.NODE_ENV != 'production'){
+  require('dotenv').config();
+}
+
+const DB_USERNAME = process.env.DB_USERNAME
+const DB_HOST = process.env.DB_HOST
+const DB_NAME = process.env.DB_NAME
+const DB_PASSWORD = process.env.DB_PASSWORD
+const DB_PORT = process.env.DB_PORT
+const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY
+
+var spoonacularAPIKey = SPOONACULAR_API_KEY;
+const googlekey = GOOGLE_API_KEY;
+
 
 // pools will use environment variables
 // for connection information
 const pool = new Pool({
-  user: server.username,
-  host: server.ip,
-  database: server.dbname,
-  password: server.password,
-  port: server.port,
+  user: DB_USERNAME,
+  host: DB_HOST,
+  database: DB_NAME,
+  password: DB_PASSWORD,
+  port: DB_PORT,
 });
 
 const cors = require("cors");
@@ -36,6 +49,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: "2mb" }));
 app.use(bodyParser.raw());
+
 
 app.get("/", (req, res) => {
   res.send("example");

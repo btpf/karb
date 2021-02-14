@@ -12,12 +12,14 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "start:dev": "nodemon index.js"
+    "start": "cross-env NODE_ENV=production node index.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.7"
   }
 }
