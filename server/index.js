@@ -37,7 +37,11 @@ const pool = new Pool({
 const cors = require("cors");
 
 const corsOptions = {
-  origin: ["http://localhost:8080", "http://localhost:5000"],
+  origin: [
+  "http://localhost:8080", // Vue debug mode
+  "http://localhost:5000", // Vue production mode
+  "http://localhost" // Android
+],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
