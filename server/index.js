@@ -69,9 +69,10 @@ app.get("/addIngredient/:ingredientName", async (req, res) => {
   res.send(rows[0]);
 });
 
-app.get("/deleteIngredient", (req, res) => {
-  //const form	= res.sendfile("html/index.html");
-  form.pipe(res); // takes in the result of the userinput from form
+app.delete('/removeIngredient/:ingredientName', async (req, res) => {
+	const ingredientName = req.params.ingredientName
+	const { rows } = await pool.query("Delete From ingredient where ingredientName = ($1)", [ingredientName])
+	res.send(rows[0])
 });
 
 app.get("/getImage", (req, res) => {
