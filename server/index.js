@@ -73,7 +73,8 @@ app.delete('/removeIngredient/:ingredientName', async (req, res) => {
 
 app.post("/postimage", (req, res) => {
   let base64Upload = req.body.image
-  base64Upload = base64Upload.replace("data:image/png;base64,", "");
+  base64Upload = base64Upload.replace("data:image/png;base64,", ""); // Desktop
+  base64Upload = base64Upload.replace("data:image/jpeg;base64,", ""); // Mobile
   let config = {
     params: {
       key: googlekey,
