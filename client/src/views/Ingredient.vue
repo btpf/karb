@@ -52,7 +52,7 @@ export default {
     addNewIngredient: function () {
       console.log('Called')
       axios
-        .get('http://localhost:3001/addIngredient/' + this.text)
+        .get(process.env.VUE_APP_BASE_URL + '/addIngredient/' + this.text)
         .then((data) => {
           this.text = ''
         })
@@ -81,7 +81,7 @@ export default {
         const reader = new FileReader()
         reader.onload = (event) => {
           axios
-            .post('http://localhost:3001/postimage/', {
+            .post(process.env.VUE_APP_BASE_URL + '/postimage/', {
               image: event.target.result
             })
             .then((response) => {

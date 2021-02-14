@@ -33,7 +33,7 @@ export default {
   methods: {
     populateData: function () {
       axios
-        .get('http://localhost:3001/findrecipe/')
+        .get(process.env.VUE_APP_BASE_URL + '/findrecipe/')
         .then((data) => {
           this.recipes = data.data
         })

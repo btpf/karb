@@ -40,7 +40,7 @@ export default {
   },
   mounted: function () {
     axios
-      .get('http://localhost:3001/getInstructions/' + this.recipeId)
+      .get(process.env.VUE_APP_BASE_URL + '/getInstructions/' + this.recipeId)
       .then((data) => {
         this.instructionData = data.data
       })

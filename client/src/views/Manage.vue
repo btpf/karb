@@ -31,14 +31,15 @@ export default {
     }
   },
   mounted: function () {
-    axios.get('http://localhost:3001/listIngredients').then((response) => {
+    axios.get(process.env.VUE_APP_BASE_URL + '/listIngredients').then((response) => {
+      console.log(response)
       this.ingredients = response.data
     })
   },
   methods: {
     deleteItems: function (ingredientName) {
       axios
-        .delete('http://localhost:3001/removeIngredient/' + ingredientName)
+        .delete(process.env.VUE_APP_BASE_URL + '/removeIngredient/' + ingredientName)
         .then((response) => {
           this.ingredients = this.ingredients.filter(
             (ingredient) => ingredient !== ingredientName
