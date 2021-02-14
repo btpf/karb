@@ -47,7 +47,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({ limit: "2mb" }));
+app.use(bodyParser.json({ limit: "8mb" }));
 app.use(bodyParser.raw());
 
 
