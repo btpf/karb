@@ -117,7 +117,10 @@ app.post("/postimage", (req, res) => {
         })
         .catch((e) => res.send(e));
 
-    }).catch(err => res.send([""]))
+    }).catch(err => {
+      console.log(err)
+      res.send([""])
+    })
 
 });
 
