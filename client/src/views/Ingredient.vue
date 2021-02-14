@@ -31,92 +31,92 @@
 </template>
 
 <script>
-const axios = require("axios");
+const axios = require('axios')
 // @ is an alias to /src
 
 export default {
-  name: "Home",
+  name: 'Home',
   methods: {
     addNewIngredient: function () {
-      console.log("Called");
+      console.log('Called')
       axios
-        .get(process.env.VUE_APP_BASE_URL + "/addIngredient/" + this.text)
+        .get(process.env.VUE_APP_BASE_URL + '/addIngredient/' + this.text)
         .then((data) => {
-          this.text = "";
+          this.text = ''
         })
-        .catch((err) => console.error(err));
+        .catch((err) => console.error(err))
     },
     selectIngredient: function (ingredientText) {
-      this.text = ingredientText;
-      this.addNewIngredient();
-      this.resetScanner();
+      this.text = ingredientText
+      this.addNewIngredient()
+      this.resetScanner()
     },
     resetScanner: function () {
-      this.camera = true;
-      this.ingredients = [];
-      this.buttonText = "Scan Image";
+      this.camera = true
+      this.ingredients = []
+      this.buttonText = 'Scan Image'
     },
     scanImage: function () {
-      if (this.buttonText === "Scanning...") {
-        return null;
+      if (this.buttonText === 'Scanning...') {
+        return null
       }
-      this.buttonText = "Scanning...";
+      this.buttonText = 'Scanning...'
 
       const imageCapture = new ImageCapture(
         this.$refs.cameraElement.srcObject.getTracks()[0]
-      );
+      )
       imageCapture.takePhoto().then((image) => {
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.onload = (event) => {
           axios
-            .post(process.env.VUE_APP_BASE_URL + "/postimage/", {
-              image: event.target.result,
+            .post(process.env.VUE_APP_BASE_URL + '/postimage/', {
+              image: event.target.result
             })
             .then((response) => {
-              this.camera = false;
-              this.ingredients = response.data;
+              this.camera = false
+              this.ingredients = response.data
             })
             .catch((error) => {
-              console.log(error);
-              this.ingredients = ["Error Please Retry"];
-            });
-        };
-        reader.readAsDataURL(image);
-      });
-    },
+              console.log(error)
+              this.ingredients = ['Error Please Retry']
+            })
+        }
+        reader.readAsDataURL(image)
+      })
+    }
   },
   beforeDestroy: function () {
-    this.$refs.cameraElement.srcObject.getTracks()[0].stop();
+    this.$refs.cameraElement.srcObject.getTracks()[0].stop()
   },
   mounted: function () {
     const constraints = {
       audio: false,
       video: {
         facingMode: {
-          exact: /Mobi/.test(navigator.userAgent) ? "environment" : undefined,
-        },
-      },
-    };
+          exact: /Mobi/.test(navigator.userAgent) ? 'environment' : undefined
+        }
+      }
+    }
     navigator.mediaDevices
       .getUserMedia(constraints)
       .then((stream) => {
-        this.$refs.cameraElement.srcObject = stream;
+        this.$refs.cameraElement.srcObject = stream
       })
       .then()
       .catch((error) => {
-        console.error(error);
-      });
+        console.error(error)
+      })
   },
   data: function () {
     return {
-      text: "",
-      buttonText: "Scan Image",
+      text: '',
+      buttonText: 'Scan Image',
       camera: true,
       optionSelect: false,
-      ingredients: [],
-    };
-  },
-};
+      ingredients: []
+    }
+  }
+}
 </script>
 
 <style scoped>

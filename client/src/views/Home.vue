@@ -10,14 +10,14 @@
 
 <script>
 // @ is an alias to /src
-import NavigateButton from "@/components/NavigateButton.vue";
+import NavigateButton from '@/components/NavigateButton.vue'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
-    NavigateButton,
-  },
-};
+    NavigateButton
+  }
+}
 </script>
 
 <style>

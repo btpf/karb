@@ -8,12 +8,12 @@
 <script>
 
 export default {
-  name: "navigateButton",
+  name: 'navigateButton',
   props: {
     msg: String,
-    url: String,
-  },
-};
+    url: String
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

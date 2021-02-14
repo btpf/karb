@@ -22,35 +22,35 @@
 </template>
 
 <script>
-import RecipePreview from "@/components/RecipePreview.vue";
-const axios = require("axios");
+import RecipePreview from '@/components/RecipePreview.vue'
+const axios = require('axios')
 // @ is an alias to /src
 
 export default {
-  name: "Home",
+  name: 'Home',
   mounted: function () {
-    this.populateData();
-    console.log("mounted: got here");
+    this.populateData()
+    console.log('mounted: got here')
   },
   data: function () {
     return {
-      recipes: [],
-    };
+      recipes: []
+    }
   },
   methods: {
     populateData: function () {
       axios
-        .get(process.env.VUE_APP_BASE_URL + "/findrecipe/")
+        .get(process.env.VUE_APP_BASE_URL + '/findrecipe/')
         .then((data) => {
-          this.recipes = data.data;
+          this.recipes = data.data
         })
-        .catch((err) => console.error(err));
-    },
+        .catch((err) => console.error(err))
+    }
   },
   components: {
-    RecipePreview,
-  },
-};
+    RecipePreview
+  }
+}
 </script>
 
 <style>

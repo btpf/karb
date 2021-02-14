@@ -14,40 +14,40 @@
   </div>
 </template>
 <script>
-const axios = require("axios");
+const axios = require('axios')
 
 export default {
-  name: "Home",
+  name: 'Home',
   data: function () {
     return {
-      ingredients: [],
-    };
+      ingredients: []
+    }
   },
   mounted: function () {
     axios
-      .get(process.env.VUE_APP_BASE_URL + "/listIngredients")
+      .get(process.env.VUE_APP_BASE_URL + '/listIngredients')
       .then((response) => {
-        console.log(response);
-        this.ingredients = response.data;
-      });
+        console.log(response)
+        this.ingredients = response.data
+      })
   },
   methods: {
     deleteItems: function (ingredientName) {
       axios
         .delete(
-          process.env.VUE_APP_BASE_URL + "/removeIngredient/" + ingredientName
+          process.env.VUE_APP_BASE_URL + '/removeIngredient/' + ingredientName
         )
         .then((response) => {
           this.ingredients = this.ingredients.filter(
             (ingredient) => ingredient !== ingredientName
-          );
+          )
         })
         .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
-};
+          console.log(err)
+        })
+    }
+  }
+}
 </script>
 
 <style>

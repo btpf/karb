@@ -17,7 +17,7 @@
       ></router-link>
     </div>
     <div id="centerFlex">
-      <div id="logo">KRAB</div>
+      <div id="logo">KARB</div>
     </div>
     <router-view />
   </div>

@@ -28,26 +28,26 @@
 </template>
 
 <script>
-const axios = require("axios");
+const axios = require('axios')
 // @ is an alias to /src
 
 export default {
-  name: "recipeInstructions",
-  props: ["recipeId", "title", "image", "missingIngredients"],
+  name: 'recipeInstructions',
+  props: ['recipeId', 'title', 'image', 'missingIngredients'],
   data: function () {
     return {
-      instructionData: false,
-    };
+      instructionData: false
+    }
   },
   mounted: function () {
     axios
-      .get(process.env.VUE_APP_BASE_URL + "/getInstructions/" + this.recipeId)
+      .get(process.env.VUE_APP_BASE_URL + '/getInstructions/' + this.recipeId)
       .then((data) => {
-        this.instructionData = data.data;
+        this.instructionData = data.data
       })
-      .catch((err) => console.error(err));
-  },
-};
+      .catch((err) => console.error(err))
+  }
+}
 </script>
 
 <style scoped>

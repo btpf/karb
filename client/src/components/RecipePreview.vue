@@ -9,21 +9,21 @@
 <script>
 
 export default {
-  name: "RecipePreview",
+  name: 'RecipePreview',
   props: {
     name: String,
     imageLink: String,
-    urlObj: Object,
+    urlObj: Object
   },
   methods: {
     truncate: function (input) {
       if (input.length > 25) {
-        return input.substring(0, 22) + "...";
+        return input.substring(0, 22) + '...'
       }
-      return input;
-    },
-  },
-};
+      return input
+    }
+  }
+}
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
