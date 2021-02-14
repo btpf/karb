@@ -1,28 +1,29 @@
 <template>
   <router-link id="recipeContainer" v-bind:to="urlObj">
     <div id="recipeItem">
-      <img id="imageBox" v-bind:src=imageLink alt="test" />
-      <div id="recipeLabel">{{ (name) }}</div>
+      <img id="imageBox" v-bind:src="imageLink" alt="test" />
+      <div id="recipeLabel">{{ name }}</div>
     </div>
   </router-link>
 </template>
 <script>
+
 export default {
-  name: 'RecipePreview',
+  name: "RecipePreview",
   props: {
     name: String,
     imageLink: String,
-    urlObj: Object
+    urlObj: Object,
   },
   methods: {
     truncate: function (input) {
       if (input.length > 25) {
-        return input.substring(0, 22) + '...'
+        return input.substring(0, 22) + "...";
       }
-      return input
-    }
-  }
-}
+      return input;
+    },
+  },
+};
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -30,7 +31,7 @@ export default {
   display: flex;
   flex-direction: row;
   text-decoration: none;
-  margin-top:20px;
+  margin-top: 20px;
 }
 #recipeItem {
   display: flex;
@@ -41,7 +42,7 @@ export default {
   align-content: center;
   align-items: center;
   justify-content: space-evenly;
-  border: 1px solid #FFA620;
+  border: 1px solid #ffa620;
 }
 #imageBox {
   background-color: white;

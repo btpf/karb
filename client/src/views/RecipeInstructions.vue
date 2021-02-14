@@ -7,46 +7,47 @@
         Warning: You are missing the following ingredients
       </div>
       <div id="missingBox">
-            <template  v-for="(ingredient,index) in (missingIngredients.includes('/')?missingIngredients.split('/'):missingIngredients)" >
-               <div :key="index">{{ingredient}}</div>
-    </template>
-        <!-- <div>Eggs</div>
-        <div>Ham</div>
-        <div>Cheese</div> -->
+        <template
+          v-for="(ingredient, index) in missingIngredients.includes('/')
+            ? missingIngredients.split('/')
+            : missingIngredients"
+        >
+          <div :key="index">{{ ingredient }}</div>
+        </template>
       </div>
     </div>
     <div id="stepContainer">
       <template v-if="instructionData">
-    <template  v-for="step in instructionData[0].steps" >
-      <h2 :key="'Step' + step.number"> Step {{step.number}}</h2>
-      <div :key="'instruction' + step.number">{{step.step}}</div>
-    </template>
+        <template v-for="step in instructionData[0].steps">
+          <h2 :key="'Step' + step.number">Step {{ step.number }}</h2>
+          <div :key="'instruction' + step.number">{{ step.step }}</div>
+        </template>
       </template>
     </div>
   </div>
 </template>
 
 <script>
-const axios = require('axios')
+const axios = require("axios");
 // @ is an alias to /src
 
 export default {
-  name: 'recipeInstructions',
-  props: ['recipeId', 'title', 'image', 'missingIngredients'],
+  name: "recipeInstructions",
+  props: ["recipeId", "title", "image", "missingIngredients"],
   data: function () {
     return {
-      instructionData: false
-    }
+      instructionData: false,
+    };
   },
   mounted: function () {
     axios
-      .get(process.env.VUE_APP_BASE_URL + '/getInstructions/' + this.recipeId)
+      .get(process.env.VUE_APP_BASE_URL + "/getInstructions/" + this.recipeId)
       .then((data) => {
-        this.instructionData = data.data
+        this.instructionData = data.data;
       })
-      .catch((err) => console.error(err))
-  }
-}
+      .catch((err) => console.error(err));
+  },
+};
 </script>
 
 <style scoped>
@@ -58,7 +59,7 @@ export default {
   align-items: center;
 }
 
-#stepContainer{
+#stepContainer {
   width: 75%;
   max-width: 750px;
 }

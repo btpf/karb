@@ -1,33 +1,32 @@
 <template>
   <div class="home">
     <div id="flexContent">
-    <NavigateButton msg="Add Ingredients" url="/Ingredient"/>
-    <NavigateButton msg="Show Recipes" url="/recipes"/>
-    <NavigateButton msg="Delete Ingredients" url="/manage"/>
+      <NavigateButton msg="Add Ingredients" url="/Ingredient" />
+      <NavigateButton msg="Show Recipes" url="/recipes" />
+      <NavigateButton msg="Delete Ingredients" url="/manage" />
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import NavigateButton from '@/components/NavigateButton.vue'
+import NavigateButton from "@/components/NavigateButton.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    NavigateButton
-  }
-}
+    NavigateButton,
+  },
+};
 </script>
 
 <style>
-#flexContent{
-  display:flex;
+#flexContent {
+  display: flex;
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
   height: calc(100vh - 120px);
-
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -36,5 +35,4 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 </style>

@@ -8,7 +8,7 @@ const { Pool, Client } = require("pg");
 
 
 
-if(process.env.NODE_ENV != 'production'){
+if (process.env.NODE_ENV != 'production') {
   require('dotenv').config();
 }
 
@@ -35,13 +35,9 @@ const pool = new Pool({
 });
 
 const cors = require("cors");
-// pool.query('SELECT NOW()', (err, res) => {
-//   console.log(err, res)
-//   pool.end()
-// })
 
 const corsOptions = {
-  origin: ["http://localhost:8080","http://localhost:5000"],
+  origin: ["http://localhost:8080", "http://localhost:5000"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
@@ -53,10 +49,6 @@ app.use(bodyParser.raw());
 
 app.get("/", (req, res) => {
   res.send("example");
-});
-app.get("/addIngredient", (req, res) => {
-  //const form	= res.sendfile("html/index.html");
-  form.pipe(res); // takes in the result of the userinput from form
 });
 
 app.get("/addIngredient/:ingredientName", async (req, res) => {
@@ -70,16 +62,9 @@ app.get("/addIngredient/:ingredientName", async (req, res) => {
 });
 
 app.delete('/removeIngredient/:ingredientName', async (req, res) => {
-	const ingredientName = req.params.ingredientName
-	const { rows } = await pool.query("Delete From ingredient where ingredientName = ($1)", [ingredientName])
-	res.send(rows[0])
-});
-
-app.get("/getImage", (req, res) => {
-  //const form	= res.sendfile("html/index.html");
-  var img = new Buffer.from(imageTest);
-  res.send('<img src="data:image/jpeg;base64, ' + imageTest + '"/>');
-  // res.send(imageTest);// takes in the result of the userinput from form
+  const ingredientName = req.params.ingredientName
+  const { rows } = await pool.query("Delete From ingredient where ingredientName = ($1)", [ingredientName])
+  res.send(rows[0])
 });
 
 app.post("/postimage", (req, res) => {
@@ -104,35 +89,32 @@ app.post("/postimage", (req, res) => {
       },
     ],
   };
-  axios.post('https://vision.googleapis.com/v1/images:annotate',data, config)
-  	.then(ress => {
-		axios
-		.post(
-		  "https://api.spoonacular.com/food/detect",
-		  querystring.stringify({
-			text: ress.data.responses[0].fullTextAnnotation.text,
-		  }),
-		  {
-			header: {
-			  "Content-Type": "application/x-www-form-urlencoded",
-			},
-			params: { apiKey: spoonacularAPIKey },
-		  }
-		)
-		.then((spoonacularResponse) => {
-			let response = spoonacularResponse.data.annotations;
-			response = response.map((item)=>{
-				return item.annotation
-			})
-		  res.send(response);
-		})
-		.catch((e) => res.send(e));
+  axios.post('https://vision.googleapis.com/v1/images:annotate', data, config)
+    .then(ress => {
+      axios
+        .post(
+          "https://api.spoonacular.com/food/detect",
+          querystring.stringify({
+            text: ress.data.responses[0].fullTextAnnotation.text,
+          }),
+          {
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            params: { apiKey: spoonacularAPIKey },
+          }
+        )
+        .then((spoonacularResponse) => {
+          let response = spoonacularResponse.data.annotations;
+          response = response.map((item) => {
+            return item.annotation
+          })
+          res.send(response);
+        })
+        .catch((e) => res.send(e));
 
-  	}).catch(err => res.send([""]))
+    }).catch(err => res.send([""]))
 
-
-
-  //res.send(["Turkey","Peanut","Ice Cream"])
 });
 
 app.delete("/removeIngredient/:ingredientName", async (req, res) => {
@@ -176,16 +158,14 @@ app.get("/findrecipe", async (req, res) => {
       res.send(filterdata(ress.data));
     })
     .catch((err) => console.error(err));
-
-  //.join
 });
 
 app.get("/getInstructions/:recipeId", async (req, res) => {
   axios
     .get(
       "https://api.spoonacular.com/recipes/" +
-        req.params.recipeId +
-        "/analyzedInstructions",
+      req.params.recipeId +
+      "/analyzedInstructions",
       {
         params: {
           apiKey: spoonacularAPIKey,
@@ -199,22 +179,9 @@ app.get("/getInstructions/:recipeId", async (req, res) => {
       res.send(instructionData.data);
     });
 
-  //.join
 });
 
 function filterdata(data) {
-  //	console.log(data);
-  // console.log("hi");
-  // data = data.map((obj)=> ({
-  // id:obj.id,
-  // title:obj.title,
-  // image:obj.image,
-  // imageType:obj.imageType,
-  // usedIngredientCount:obj.usedIngredientCount,
-  // missedIngredientCount:obj.missedIngredientCount,
-  // missedIngredients:obj.missedIngredients,
-  // usedIngredients:obj.usedIngredients
-  // }));
 
   data = data.map((obj) => ({
     id: obj.id,
@@ -225,9 +192,6 @@ function filterdata(data) {
     ),
   }));
 
-  // console.log(data);
-  //data.map((obj) => console.log(obj));
-
   return data;
 }
 
@@ -235,17 +199,5 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-//Armaan Singh index.js lines 14-72
-
-/*
-pool.query("INSERT INTO ingredient(ingredientName) VALUES('Cheese')",(err, res) => {
-  console.log(err, res)
-  pool.end()
-})
-*/
-
-pool.query("SELECT $1::text as message", ["Hello world!"], (err, res) => {
-  console.log(err ? err.stack : res.rows[0].message); // Hello World!
-});
 
 app.listen(3000);

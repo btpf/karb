@@ -10,47 +10,44 @@
           <div id="circle">X</div>
         </button>
       </div>
-
-      <!-- <div id="row">
-        <h3 id="item">item 2</h3>
-
-        <div id="circle">X</div>
-
-      </div> -->
     </div>
   </div>
 </template>
 <script>
-const axios = require('axios')
+const axios = require("axios");
 
 export default {
-  name: 'Home',
+  name: "Home",
   data: function () {
     return {
-      ingredients: []
-    }
+      ingredients: [],
+    };
   },
   mounted: function () {
-    axios.get(process.env.VUE_APP_BASE_URL + '/listIngredients').then((response) => {
-      console.log(response)
-      this.ingredients = response.data
-    })
+    axios
+      .get(process.env.VUE_APP_BASE_URL + "/listIngredients")
+      .then((response) => {
+        console.log(response);
+        this.ingredients = response.data;
+      });
   },
   methods: {
     deleteItems: function (ingredientName) {
       axios
-        .delete(process.env.VUE_APP_BASE_URL + '/removeIngredient/' + ingredientName)
+        .delete(
+          process.env.VUE_APP_BASE_URL + "/removeIngredient/" + ingredientName
+        )
         .then((response) => {
           this.ingredients = this.ingredients.filter(
             (ingredient) => ingredient !== ingredientName
-          )
+          );
         })
         .catch((err) => {
-          console.log(err)
-        })
-    }
-  }
-}
+          console.log(err);
+        });
+    },
+  },
+};
 </script>
 
 <style>
