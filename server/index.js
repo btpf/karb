@@ -12,11 +12,20 @@ if (process.env.NODE_ENV != 'production') {
   require('dotenv').config();
 }
 
-const DB_USERNAME = process.env.DB_USERNAME
-const DB_HOST = process.env.DB_HOST
-const DB_NAME = process.env.DB_NAME
-const DB_PASSWORD = process.env.DB_PASSWORD
-const DB_PORT = process.env.DB_PORT
+if(process.env.DATABASE_URL){
+let db = process.env.DATABASE_URL
+
+let reg = /postgres:\/\/(?<username>[A-Za-z]+):(?<password>[A-Za-z0-9]+)@(?<host>[A-Za-z0-9\-.]+):(?<port>\d+)\/(?<database>[A-Za-z0-9]+)/
+
+var [,username, password, host, dbport, database] = reg.exec(db)
+}
+
+const DB_USERNAME = username || process.env.DB_USERNAME
+const DB_HOST = host || process.env.DB_HOST
+const DB_NAME = database || process.env.DB_NAME
+const DB_PASSWORD = password || process.env.DB_PASSWORD
+const DB_PORT = dbport || process.env.DB_PORT
+
 const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY
 
