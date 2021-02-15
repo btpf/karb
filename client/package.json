@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "npm run build && serve -s dist",
+    "start": "npm run build && node client-server.js",
     "serve": "vue-cli-service serve",
     "serve-android": "npm run build && npx cap sync && npx cap open android",
     "build": "vue-cli-service build",
@@ -13,10 +13,12 @@
     "@capacitor/android": "^2.4.6",
     "@capacitor/cli": "^2.4.6",
     "@capacitor/core": "^2.4.6",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "express": "^4.17.1",
+    "serve-static": "^1.14.1",
     "vue": "^2.6.11",
-    "vue-router": "^3.2.0",
-    "axios": "^0.21.1"
+    "vue-router": "^3.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -31,7 +33,6 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
-    "serve": "^11.3.2",
     "vue-template-compiler": "^2.6.11"
   }
 }
