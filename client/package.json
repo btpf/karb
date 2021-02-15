@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "serve-android": "npm run build && npx cap sync && npx cap open android",
     "build": "vue-cli-service build",
+    "production": "npm run build && serve -s dist",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -30,6 +31,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
+    "serve": "^11.3.2",
     "vue-template-compiler": "^2.6.11"
   }
 }
