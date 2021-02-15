@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "start": "npm run build && serve -s dist",
     "serve": "vue-cli-service serve",
     "serve-android": "npm run build && npx cap sync && npx cap open android",
     "build": "vue-cli-service build",
-    "production": "npm run build && serve -s dist",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
