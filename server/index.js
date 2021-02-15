@@ -18,6 +18,7 @@ let db = process.env.DATABASE_URL
 let reg = /postgres:\/\/(?<username>[A-Za-z]+):(?<password>[A-Za-z0-9]+)@(?<host>[A-Za-z0-9\-.]+):(?<port>\d+)\/(?<database>[A-Za-z0-9]+)/
 
 var [,username, password, host, dbport, database] = reg.exec(db)
+var sslEnabled = true;
 }
 
 const DB_USERNAME = username || process.env.DB_USERNAME
@@ -41,6 +42,7 @@ const pool = new Pool({
   database: DB_NAME,
   password: DB_PASSWORD,
   port: DB_PORT,
+  ssl: sslEnabled || false
 });
 
 const cors = require("cors");
