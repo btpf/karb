@@ -1,7 +1,7 @@
 <template>
   <div id="flexContent">
     <label id="ingredientLabel" for="new-ingredient"
-      >Insert or scan the ingredients In Your House</label
+      >Insert or Scan Ingredients</label
     >
     <div v-show="camera" id="video-container">
       <video id="video" ref="cameraElement" playsinline autoplay></video>

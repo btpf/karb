@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h2 id="ManagerLabel" for="ingredient">Delete ingredient</h2>
+    <h2 id="ManagerLabel" for="ingredient">Delete Ingredient</h2>
 
     <div id="flexManage">
       <div id="row" v-for="(ingredient, i) in ingredients" :key="i">
