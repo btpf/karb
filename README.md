@@ -1,60 +1,154 @@
-# KRAB
-(K)arolay Sanchez, (R)ichard Tsang (A)rmaan Singh, (B)ret Papkoff. 
+# KARB
+(K)arolay Sanchez, (A)rmaan Singh, (R)ichard Tsang, (B)ret Papkoff. 
 
-![](https://cdn.discordapp.com/attachments/802690157970456590/803012904122843136/unknown.png)
+![image-20210215060004353](https://user-images.githubusercontent.com/61168382/107945430-9b1ddf80-6f5d-11eb-8a4e-4661a4e301c0.png)
+
+This app was created as a part of the 2021 CUNY Hackathon.
+
+KARB is a concept recipe application that allows users to scan in ingredients around your house and find recipes that you can cook with what's available. Designed to assist in a time of COVID-19 where many rely on delivery apps and take out, KARB in it's complete form would ideally assist those who are looking to learn how to cook.
+
+It features Google Cloud Vision's OCR API to recognize food labels with your camera and Spoonacular API to find recipes based on ingredients. 
+
+The database, server, and client are also hosted on Heroku, so feel free to try the app in the releases tab, evaluate the live demo page, or run the following commands to try it locally.
+
+**Live Demo**: https://karb-client.herokuapp.com/
+
+```bash
+cd client
+npm i
+npm run build
+npm start
+```
 
 
-Final Submission Overview: https://docs.google.com/document/d/1Fg8xsx3X5zUqGILK1PxlsLn5jzTxPy-qMCC7ZhRYTkY/edit
 
- - Designed to provide the user with recipes they can make once they put in a recipe through the spoonacular API and
-narrow it down by cuisine or diet. It is also very helpful in the time of covid where many rely on uber eats to take out food.
-The application in it's complete form would also allow the user to scan ingredients around their house an an alternative to manually entering them in.
-This would use Google Cloud Vision which would use AI that would recognize the item and add it to the database of ingredients.
 
-##### Instructions:
- 1. User would go to home page and click on the add ingredients button where there will be
-a text box.
 
-   ![](https://cdn.discordapp.com/attachments/802690157970456590/803012291737419807/unknown.png)
+### Demo Video
 
-2.The user can add ingredients to their satisfaction and then his search for recipe, they will
-be told if they need any additional ingredients for the particular recipe.
+TBA
 
-   ![](https://cdn.discordapp.com/attachments/802690157970456590/803012369017602048/unknown.png)
-   
-3. Additional they can go back to their previous list of ingredients and delete ingrates if
-they want to use some of the previous ingredients.
 
-  ![](https://cdn.discordapp.com/attachments/802690157970456590/803012369017602048/unknown.png)
-  
 
-##### Mockups used for UI
-![](https://cdn.discordapp.com/attachments/642141815478419467/803015913909125180/unknown.png)
 
-##### Technologies Used
-1. **spoonacular API** - provided with recipes once ingredients and paramateres were
+
+
+
+
+
+KARB has three components. The Client, Server, and Database.
+
+### Application Architecture
+
+![image-20210215071420637](https://user-images.githubusercontent.com/61168382/107945532-c7d1f700-6f5d-11eb-90eb-d5f97a6c968b.png)
+
+#### KARB Client
+
+KARB Client is written in ES6 and utilizes Vue for front end components.
+
+KARB initially utilized Cordova but later switched to Capacitor, a runtime which allows exporting a single web application codebase to mobile and desktop platforms with a single command.
+
+The decision to switch from Cordova to Capacitor was due to difficulties building the application, and the inability to use the more modern getUserMedia() for the camera functionality on Cordova's mobile exports.
+
+The client consist of 5 pages.
+
+**Home screen** - Allows the user to select what they want to do
+
+**Add Ingredients** - To allow users to scan in ingredients or manually type them in
+
+**Manage Ingredients** - Necessary for the deletion of ingredients
+
+**Show Recipes** - Shows images of different dishes that you can cook with the ingredients you have
+
+**Ingredient Page** - Gives the instructions on how to cook a given dish
+
+
+
+*Showcase of Pages*
+
+![Final App Pages](https://user-images.githubusercontent.com/61168382/107945709-05368480-6f5e-11eb-83c0-619b5bf1eba1.png)
+
+*Screenshot of Android Emulator Running App*
+
+<img src="https://user-images.githubusercontent.com/61168382/107945673-f8b22c00-6f5d-11eb-9ce4-68380ab98697.png" alt="Emulator" style="zoom:50%;" />
+
+
+
+#### **KARB Server**
+
+KARB Server utilizes express for the REST API used by the client. It contains the following routes:
+
+
+
+**GET	** `/addIngredient/:ingredientName`
+
+This route will take the `ingredientName` and add it to the Postgres Database.
+
+
+
+**POST	** `/postimage`
+
+This route will receive a JSON body of a Base64 encoded image. It will then pass this image into the Google Vision API where the OCR takes place and a string containing all the detected text in the image returned. The text is then passed into the Spoonacular API which will extract ingredient names from a body of text.  Finally, once possible ingredients have been recognized, the matches are returned to the user in the form of an array, where they can select which is correct.
+
+
+
+**DELETE**	 `/removeIngredient/:ingredientName`
+
+This route will take the `ingredientName` and delete it from the database.
+
+
+
+**GET**	 `/listIngredients`
+
+This route will return a list of all the ingredients entered into the database. This is called when on the manage page so the user can know which items they wish to delete.
+
+
+
+**GET**	 `/findrecipe`
+
+This route will retrieve all the ingredients entered into the Postgres Database and contact Spoonacular's API with them. It will then return a list of dishes that the user could cook which contain similar or identical ingredients.
+
+
+
+**GET	** `/getInstructions/:recipeId`
+
+This route will contact Spoonacular with a given recipe ID in order to receive back a list of instructions and possible missing ingredients for a selected dish.
+
+
+
+The server also requires a `.env` file containing the secrets necessary to run.
+
+```
+DB_USERNAME=
+DB_HOST=
+DB_NAME=
+DB_PASSWORD=
+DB_PORT=
+SPOONACULAR_API_KEY=
+GOOGLE_API_KEY=
+```
+
+
+
+
+
+#### Technologies Used
+1. **Spoonacular API** - provided with recipes once ingredients and parameters were
 added
-
 2. **Vue.js** - in order to make front end work easier
-
-3. **node.js** - language in which this was coded
-
-4. **VsCode** - main coding platform
-
+3. **Node.js** - language in which this was coded
+4. **VSCode** - main coding platform
 5. **PostgreSQL** - database for the project
-
 6. **ngrok** - used for port forwarding
-
 7. **Insomina** - Rest API tester
-
 8. **Axios** - to make request to the server
-
 9. **Express JS** - Processing Incoming requests
-
 10. **Apache Cordova** - make web apps run as mobile apps combined with vue.
+11. **Capacitor** - Later used in place of Cordova
+12. **Git** - for version control
+13. **Heroku** - Used for hosting the server and database
 
-11. **Github** - for version control
- 
- 
- *Screenshot of planning sheet (Path to learn the technologies neccesary for the app's creation)*
-![](https://cdn.discordapp.com/attachments/642141815478419467/803016470798794753/unknown.png)
+ *Screenshot of planning sheet (Path to learn the technologies necessary for the app's creation)*
+
+![](https://user-images.githubusercontent.com/61168382/107945636-eafca680-6f5d-11eb-9fe3-fc42ed162fba.png)
+
