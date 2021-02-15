@@ -53,7 +53,8 @@ const corsOptions = {
   origin: [
     "http://localhost:8080", // Vue debug mode
     "http://localhost:5000", // Vue production mode
-    "http://localhost" // Android
+    "http://localhost", // Android
+    "https://karb-client.herokuapp.com" // Heroku live demo
   ],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
