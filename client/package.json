@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "npm run build && node client-server.js",
+    "start": "node client-server.js",
     "serve": "vue-cli-service serve",
     "serve-android": "npm run build && npx cap sync && npx cap open android",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "@capacitor/android": "^2.4.6",
@@ -18,10 +19,10 @@
     "express": "^4.17.1",
     "serve-static": "^1.14.1",
     "vue": "^2.6.11",
-    "vue-router": "^3.2.0",
-    "@vue/cli-service": "~4.5.0"
+    "vue-router": "^3.2.0"
   },
   "devDependencies": {
+    "@vue/cli-service": "~4.5.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
