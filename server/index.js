@@ -12,13 +12,13 @@ if (process.env.NODE_ENV != 'production') {
   require('dotenv').config();
 }
 
-if(process.env.DATABASE_URL){
-let db = process.env.DATABASE_URL
+if (process.env.DATABASE_URL) {
+  let db = process.env.DATABASE_URL
 
-let reg = /postgres:\/\/(?<username>[A-Za-z]+):(?<password>[A-Za-z0-9]+)@(?<host>[A-Za-z0-9\-.]+):(?<port>\d+)\/(?<database>[A-Za-z0-9]+)/
+  let reg = /postgres:\/\/(?<username>[A-Za-z]+):(?<password>[A-Za-z0-9]+)@(?<host>[A-Za-z0-9\-.]+):(?<port>\d+)\/(?<database>[A-Za-z0-9]+)/
 
-var [,username, password, host, dbport, database] = reg.exec(db)
-var sslEnabled = true;
+  var [, username, password, host, dbport, database] = reg.exec(db)
+  var sslEnabled = true;
 }
 
 const DB_USERNAME = username || process.env.DB_USERNAME
@@ -42,17 +42,19 @@ const pool = new Pool({
   database: DB_NAME,
   password: DB_PASSWORD,
   port: DB_PORT,
-  ssl: sslEnabled || false
+  ssl: sslEnabled ? {
+    rejectUnauthorized: false
+  } : false // Enable SSL If using Heroku,
 });
 
 const cors = require("cors");
 
 const corsOptions = {
   origin: [
-  "http://localhost:8080", // Vue debug mode
-  "http://localhost:5000", // Vue production mode
-  "http://localhost" // Android
-],
+    "http://localhost:8080", // Vue debug mode
+    "http://localhost:5000", // Vue production mode
+    "http://localhost" // Android
+  ],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
