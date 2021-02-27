@@ -135,18 +135,19 @@ GOOGLE_API_KEY=
 #### Technologies Used
 1. **Spoonacular API** - provided with recipes once ingredients and parameters were
 added
-2. **Vue.js** - in order to make front end work easier
-3. **Node.js** - language in which this was coded
-4. **VSCode** - main coding platform
-5. **PostgreSQL** - database for the project
-6. **ngrok** - used for port forwarding
-7. **Insomina** - Rest API tester
-8. **Axios** - to make request to the server
-9. **Express JS** - Processing Incoming requests
-10. **Apache Cordova** - make web apps run as mobile apps combined with vue.
-11. **Capacitor** - Later used in place of Cordova
-12. **Git** - for version control
-13. **Heroku** - Used for hosting the server and database
+2. **Google Vision API**- analyzes image and extracts text
+3. **Vue.js** - in order to make front end work easier
+4. **Node.js** - language in which this was coded
+5. **VSCode** - main coding platform
+6. **PostgreSQL** - database for the project
+7. **ngrok** - used for port forwarding
+8. **Insomina** - Rest API tester
+9. **Axios** - to make request to the server
+10. **Express JS** - Processing Incoming requests
+11. **Apache Cordova** - make web apps run as mobile apps combined with vue.
+12. **Capacitor** - Later used in place of Cordova
+13. **Git** - for version control
+14. **Heroku** - Used for hosting the server and database
 
  *Screenshot of planning sheet (Path to learn the technologies necessary for the app's creation)*
 
